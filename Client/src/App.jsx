@@ -16,23 +16,34 @@ function App() {
   const dispatch=useDispatch();
 
   useEffect(() => {
-    const getUser = async () => {
-      try {
-        const result = await axios.get(
-          `${ServerUrl}/api/user/current-user`,
-          { withCredentials: true } // required for cookies
-        );
 
-        dispatch(setUserData(result.data))
+  const getUser = async () => {
 
-      } catch (error) {
-        console.log("Not authenticated:", error.response?.data?.message);
-        dispatch(setUserData(null))
-      }
-    };
+    try {
 
-    getUser();
-  }, [dispatch]);
+      const result = await axios.get(
+        `${ServerUrl}/api/user/current-user`,
+        {
+          withCredentials: true
+        }
+      );
+
+      dispatch(setUserData(result.data.user));
+
+    } catch (error) {
+
+      console.log(
+        "Not authenticated:",
+        error.response?.data?.message
+      );
+
+      dispatch(setUserData(null));
+    }
+  };
+
+  getUser();
+
+}, [dispatch]);
 
   return (
     <Routes>

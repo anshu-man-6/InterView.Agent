@@ -1,7 +1,7 @@
 import express from "express";
-import isAuth from "../middlewares/isAuth";
-import { upload } from "../middlewares/multer";
-import { analyzeResume } from "../controllers/interview.controller";
+import isAuth from "../middlewares/isAuth.js";
+import { upload } from "../middlewares/multer.js";
+import { analyzeResume } from "../controllers/interview.controller.js";
 
 
 // Create a new router instance
