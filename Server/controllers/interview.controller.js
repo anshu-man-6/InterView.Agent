@@ -140,10 +140,10 @@ Return ONLY valid JSON.
 
     const aiResponse = await askAi(messages);
 
-    /**
-     * ---------------------------------------------------------
+    /*
+     
      * Parse AI Response
-     * ---------------------------------------------------------
+     
      */
 
     let parsed;
@@ -413,7 +413,7 @@ Generate questions using:
      */
 
     const aiResponse = await askAi(message);
-
+    
     /**
      * TODO:
      * - Deduct user credits
@@ -422,6 +422,17 @@ Generate questions using:
      * - Return formatted response
      */
 
+
+    if(!aiResponse || aiResponse.trim()){
+      return res.status(500).json({message:"AI returned empty response."})
+    }
+
+    const questionArray=aiResponse.split("/n").map(q=>q.trim()).filter(q=>q.length>0).slice(0,5);
+   
+
+    if(questionArray.length==0){
+      return res.status(500).json({message:"AI failed to generates questions."});
+    }
   } catch (error) {
 
     /**
